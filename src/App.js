@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import CalendarPage from './pages/CalendarPage';
+import ToDoListPage from './pages/ToDoListPage';
+import MyPage from './pages/MyPage'; 
+import SignUpPage from './pages/SignUpPage';
+import SettingPage from './pages/SettingPage';
+import TodayListPage from './pages/TodayListPage';
+import { NicknameProvider } from './NicknameContext'; // ✅ 정확
+//import ArchivePage from './pages/ArchivePage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <NicknameProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/todolist" element={<ToDoListPage />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/setting" element={<SettingPage />} />
+        <Route path="/todaylist" element={<TodayListPage tasks={[]} categories={[]} />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </Router>
+  </NicknameProvider>  
   );
 }
 
