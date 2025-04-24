@@ -9,6 +9,7 @@ import { getCategoryByDate, saveCategory } from '../api/category';
 function CalendarPage() {
   const location = useLocation();
   const navigate = useNavigate();
+  const defaultDate = location.state?.selectedDate || new Date();
 
   const initialDate = location.state?.selectedDate
     ? new Date(location.state.selectedDate)

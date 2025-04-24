@@ -7,7 +7,8 @@ import API from '../api/axiosInstance';
 
 function TodayListPage() {
   const navigate = useNavigate();
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0];
+
 
   const [tasks, setTasks] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -17,7 +18,7 @@ function TodayListPage() {
     const fetchTodayTasks = async () => {
       try {
         const res = await API.get('/toDoList'); 
-        setTasks(res.data); // ✅ 여기에서만 사용 가능
+        setTasks(res.data); 
         const uniqueCategories = [...new Set(res.data.map((task) => task.categoryName || task.category))];
       setCategories(uniqueCategories);
 
@@ -76,4 +77,5 @@ function TodayListPage() {
 }
 
 export default TodayListPage;
+
 
