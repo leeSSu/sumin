@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Calendar from 'react-calendar';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FiHome, FiUser } from 'react-icons/fi';
@@ -10,6 +10,7 @@ function CalendarPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const defaultDate = location.state?.selectedDate || new Date();
+  const isSubmittingRef = useRef(false);
 
   const initialDate = location.state?.selectedDate
     ? new Date(location.state.selectedDate)
@@ -64,16 +65,24 @@ function CalendarPage() {
     setRenameInputs(updated);
   };
 
+  
   const handleRenameCategory = async (idx) => {
-    const newName = renameInputs[idx].trim();
-    if (!newName) return;
+    if (isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
 
+    const newName = renameInputs[idx].trim();
+    if (!newName) {
+      isSubmittingRef.current = false;
+      return;
+    }
+
+    
     const currentValue = categories[idx];
     const defaultLabel = `Category${idx + 1}`;
 
-    // 이미 저장된 항목이면 막기
     if (currentValue !== '' && currentValue !== defaultLabel) {
       alert('이미 저장된 카테고리는 수정할 수 없어요!');
+      isSubmittingRef.current = false;
       return;
     }
 
@@ -92,23 +101,33 @@ function CalendarPage() {
       updated[idx] = res[key] ?? '';
       setCategories(updated);
       setRenameInputs(['', '', '']);
+  
+      // 🔥 현재 선택된 category가 비어 있었거나 기본값이면 새로 저장한 값으로 설정
+      if (!categoryPid && res.pid) {
+        setCategoryPid(res.pid);
+      }
     } catch (err) {
       console.error('카테고리 저장 실패:', err);
-      console.log('❗에러 응답 상태 코드:', err.response?.status);
-      console.log('❗에러 응답 메시지:', err.response?.data);
       alert('카테고리 저장에 실패했어요. 다시 시도해주세요.');
+    } finally {
+      setTimeout(() => {
+        isSubmittingRef.current = false;
+      }, 300);
     }
   };
 
   const handleGoToTodo = (idx) => {
     const formattedDate = formatLocalDate(selectedDate);
+
     navigate('/Todolist', {
       state: {
+        
         selectedDate: formattedDate,
         selectedCategory: categories[idx],
         categoryPid: categoryPid,
         categoryIndex: idx,
       },
+      
     });
   };
 
@@ -147,6 +166,7 @@ function CalendarPage() {
               onChange={(e) => handleInputChange(idx, e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
+                  e.preventDefault();
                   handleRenameCategory(idx);
                   e.target.blur();
                 }

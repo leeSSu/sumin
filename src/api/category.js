@@ -9,6 +9,7 @@ export const getCategoryByDate = async (date) => {
   return response.data;
 };
 
+
 // ✅ 카테고리 저장 (POST)
 export const saveCategory = async (payload) => {
   const response = await axiosInstance.post('/home', payload);

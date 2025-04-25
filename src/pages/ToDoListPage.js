@@ -17,7 +17,7 @@ function ToDoListPage() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
-  useEffect(() => {
+  //useEffect(() => {
     const fetchTasks = async () => {
       if (!categoryPid || !selectedCategory) return;
       try {
@@ -28,9 +28,12 @@ function ToDoListPage() {
         console.error('할 일 불러오기 실패:', err);
       }
     };
+ 
 
-    fetchTasks();
-  }, [categoryPid, selectedCategory]);
+    useEffect(() => {
+      fetchTasks();
+    }, [location.key]);
+
 
   const handleAdd = async () => {
     if (!newTask.trim()) return;
@@ -38,6 +41,7 @@ function ToDoListPage() {
       const added = await addToDo(categoryPid, selectedCategory, newTask);
       setTasks((prev) => [...prev, added]);
       setNewTask('');
+      await fetchTasks();
     } catch (err) {
       console.error('추가 실패:', err);
     }
