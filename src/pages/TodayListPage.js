@@ -45,7 +45,7 @@ function TodayListPage() {
       {/* 카테고리별 투두리스트 */}
       {categories.map((cat) => (
         <div key={cat} className="mb-6">
-          <h3 className="font-bold text-2xl mb-2">{cat}</h3>
+          <h3 className="font-bold text-xl mb-2">{cat}</h3>
           <ul className="space-y-2">
             {tasks
               .filter((task) => (task.categoryName || task.category) === cat)
