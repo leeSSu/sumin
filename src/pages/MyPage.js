@@ -1,7 +1,7 @@
 // src/pages/MyPage.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiHome, FiUser } from 'react-icons/fi';
+import { FiHome, FiUser, FiFolder } from 'react-icons/fi';
 import { BsPerson } from 'react-icons/bs';
 import { CiSettings } from 'react-icons/ci';
 import { useEffect } from 'react';
@@ -35,7 +35,7 @@ function MyPage() {
           {/* 오른쪽 상단 화살표 */}
           <button
             onClick={() => navigate('/calendar')}
-            className="absolute top-0 right-0 text-xl"
+            className="absolute top-0 right-0 text-[#2F2A89] text-3xl"
           >
             ←
           </button>
@@ -78,9 +78,10 @@ function MyPage() {
 
 
       {/* 하단 내비게이션 바 */}
-      <div className="fixed bottom-1 left-0 right-0 bg-[#FFFDEB] flex justify-around items-center px-6 text-3xl">
+      <div className="fixed bottom-1 left-0 right-0 bg-[#FFFDEB] flex justify-around items-center px-6 py-3 text-3xl shadow-inner z-50">
         <button onClick={() => navigate('/calendar')}><FiHome /></button>
         <button onClick={() => navigate('/todaylist')}>🗹</button>
+        <button onClick={() => navigate('/archive')}><FiFolder /></button>
         <button onClick={() => navigate('/mypage')}><FiUser /></button>
       </div>
      </div> 

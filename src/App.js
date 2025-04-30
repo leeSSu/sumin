@@ -7,7 +7,7 @@ import SignUpPage from './pages/SignUpPage';
 import SettingPage from './pages/SettingPage';
 import TodayListPage from './pages/TodayListPage';
 import { NicknameProvider } from './NicknameContext'; // ✅ 정확
-//import ArchivePage from './pages/ArchivePage';
+import ArchivePage from './pages/ArchivePage';
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
         <Route path="/setting" element={<SettingPage />} />
         <Route path="/todaylist" element={<TodayListPage tasks={[]} categories={[]} />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/archive" element={<ArchivePage />} />
       </Routes>
     </Router>
   </NicknameProvider>  

@@ -76,8 +76,8 @@ function ToDoListPage() {
     <div className="min-h-screen bg-white px-6 py-4 flex flex-col">
       {/* 상단 */}
       <div className="flex justify-between items-center mb-4">
-        <button onClick={() => navigate('/calendar',  { state: { selectedDate } })} className="text-xl">←</button>
-        <div className="text-lg font-semibold">{formattedDate}</div>
+        <button onClick={() => navigate('/calendar',  { state: { selectedDate } })} className="text-[#2F2A89] text-3xl">←</button>
+        <div className="text-2xl font-semibold">{formattedDate}</div>
         <div style={{ width: '1.5rem' }} />
       </div>
 

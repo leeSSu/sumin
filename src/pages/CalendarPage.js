@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Calendar from 'react-calendar';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FiHome, FiUser } from 'react-icons/fi';
+import { FiHome, FiUser, FiFolder } from 'react-icons/fi';
 import 'react-calendar/dist/Calendar.css';
 import '../index.css';
 import { getCategoryByDate, saveCategory } from '../api/category';
@@ -57,6 +57,7 @@ function CalendarPage() {
 
   useEffect(() => {
     if (selectedDate) fetchCategories(selectedDate);
+    setActiveStartDate(selectedDate);
   }, [selectedDate]);
 
   const handleInputChange = (idx, value) => {
@@ -132,7 +133,7 @@ function CalendarPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9] px-4 py-3 pb-24">
+    <div className="min-h-screen bg-[#f9f9f9] px-6 py-3 pb-24">
       <div className="text-center text-2xl font-medium text-gray-500 mt-5 mb-2">
         {monthName} {year}
       </div>
@@ -189,6 +190,7 @@ function CalendarPage() {
         <div className="w-[340px] flex justify-between items-center px-6 text-3xl">
           <button onClick={() => navigate('/calendar')}><FiHome /></button>
           <button onClick={() => navigate('/todaylist')}>🗹</button>
+          <button onClick={() => navigate('/archive')}><FiFolder /></button>
           <button onClick={() => navigate('/mypage')}><FiUser /></button>
         </div>
       </div>

@@ -1,7 +1,7 @@
 // src/pages/TodayListPage.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiHome, FiUser } from 'react-icons/fi';
+import { FiHome, FiUser, FiFolder } from 'react-icons/fi';
 import API from '../api/axiosInstance';
 
 
@@ -36,16 +36,16 @@ function TodayListPage() {
     <div className="min-h-screen bg-[#f9f9f9] px-6 py-6 pb-24">
       {/* 상단 */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">🗓️ {today}</h1>
-        <button onClick={() => navigate(-1)} className="text-gray-500">←</button>
+        <h1 className="text-3xl font-bold">🗓️ {today}</h1>
+        <button onClick={() => navigate('/calendar')} className="text-[#2F2A89] text-3xl">←</button>
       </div>
 
-      <h2 className="text-xl font-semibold mb-4">오늘의 To-do List</h2>
+      <h2 className="text-2xl font-semibold mb-4">오늘의 To-do List</h2>
 
       {/* 카테고리별 투두리스트 */}
       {categories.map((cat) => (
         <div key={cat} className="mb-6">
-          <h3 className="font-bold text-lg mb-2">{cat}</h3>
+          <h3 className="font-bold text-2xl mb-2">{cat}</h3>
           <ul className="space-y-2">
             {tasks
               .filter((task) => (task.categoryName || task.category) === cat)
@@ -67,9 +67,10 @@ function TodayListPage() {
       ))}
 
       {/* 하단 네비게이션 */}
-      <div className="fixed bottom-1 left-0 right-0 bg-[#FFFDEB] flex justify-around items-center px-6 text-3xl">
+      <div className="fixed bottom-1 left-0 right-0 bg-[#FFFDEB] flex justify-around items-center px-6 py-3 text-3xl shadow-inner">
         <button onClick={() => navigate('/calendar')}><FiHome /></button>
         <button onClick={() => navigate('/todaylist')}>🗹</button>
+        <button onClick={() => navigate('/archive')}><FiFolder /></button>
         <button onClick={() => navigate('/mypage')}><FiUser /></button>
       </div>
     </div>
